@@ -3,47 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบจองห้องประชุม - [67543206005-0]</title>
+    <title>Mario Room Reservation - [67543206005-0]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-color: #1a73e8;
-            --success-color: #28a745;
-            --error-color: #dc3545;
-            --bg-color: #f8f9fa;
+            --mario-red: #e4000f;
+            --mario-blue: #049cd8;
+            --mario-yellow: #fbd000;
+            --mario-green: #43b047;
+            --sky-blue: #5c94fc;
+            --brick-brown: #944824;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Press Start 2P', cursive; /* ฟอนต์เกม 8-bit */
         }
 
         body {
-            background-color: var(--bg-color);
-            padding: 20px;
-            line-height: 1.6;
+            background-color: var(--sky-blue);
+            background-image: 
+                radial-gradient(circle, #ffffff 10%, transparent 10%),
+                radial-gradient(circle, #ffffff 10%, transparent 10%);
+            background-size: 100px 100px;
+            background-position: 0 0, 50px 50px;
+            color: white;
+            padding: 40px 10px;
+            image-rendering: pixelated;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         h1 {
             text-align: center;
-            color: #333;
-            margin-bottom: 30px;
+            font-size: 1.5rem;
+            text-shadow: 4px 4px #000;
+            margin-bottom: 40px;
+            color: var(--mario-yellow);
         }
 
-        /* Search Section */
+        
         .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 25px;
+            background: #f8d870; 
+            border: 6px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            padding: 30px;
+            margin-bottom: 40px;
+            color: #000;
+            position: relative;
+        }
+
+        .card h2 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: var(--mario-red);
+            text-transform: uppercase;
         }
 
         .search-grid {
@@ -55,160 +75,174 @@
         .form-group {
             display: flex;
             flex-direction: column;
+            margin-bottom: 15px;
         }
 
         label {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #555;
+            font-size: 0.6rem;
+            margin-bottom: 10px;
+            font-weight: bold;
         }
 
         input, select, textarea {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 12px;
+            border: 4px solid #000;
+            background: white;
+            font-size: 0.7rem;
+            outline: none;
         }
 
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+
+        .btn {
+            padding: 15px;
+            border: 4px solid #000;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            box-shadow: 4px 4px 0px #000;
+            transition: transform 0.1s;
             margin-top: 10px;
         }
 
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 14px;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
+            background-color: var(--mario-blue);
             color: white;
-            width: 100%;
-            margin-top: 20px;
         }
 
-        .btn-success { background-color: var(--success-color); color: white; }
-
-        /* Table Section */
-        .table-container {
-            overflow-x: auto;
+        .btn-success {
+            background-color: var(--mario-green);
+            color: white;
         }
+
 
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
             background: white;
+            border: 4px solid #000;
         }
 
         th, td {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #eee;
+            border: 4px solid #000;
+            font-size: 0.55rem;
+            color: #000;
         }
 
-        th { background-color: #f1f3f4; color: #555; }
+        th {
+            background-color: var(--mario-yellow);
+        }
 
-        /* Modal Section */
+
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.8);
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
 
         .modal-content {
-            background: white;
+            background: #fff;
+            border: 8px solid var(--mario-red);
             padding: 30px;
-            border-radius: 12px;
             width: 90%;
             max-width: 500px;
+            color: #000;
+            box-shadow: 10px 10px 0px var(--mario-yellow);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             margin-bottom: 20px;
         }
 
-        .close-btn { font-size: 24px; cursor: pointer; }
+        .close-btn { color: var(--mario-red); cursor: pointer; }
 
         .hidden { display: none; }
 
-        @media (max-width: 600px) {
-            .search-grid { grid-template-columns: 1fr; }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.5rem;
+        }
+
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: var(--mario-green);
+            border-top: 4px solid #000;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>🏢 ระบบจองห้องประชุมออนไลน์</h1>
+        <h1>MARIO_ROOM_QUEST.EXE</h1>
 
         <section class="card">
-            <h2>🔎 ค้นหาห้องประชุม</h2>
+            <h2>START SEARCH</h2>
             <form id="searchForm">
                 <div class="search-grid">
                     <div class="form-group">
-                        <label>วันที่</label>
+                        <label>DATE</label>
                         <input type="date" id="s_date" required>
                     </div>
                     <div class="form-group">
-                        <label>เวลาเริ่ม</label>
+                        <label>START_TIME</label>
                         <input type="time" id="s_start" required>
                     </div>
                     <div class="form-group">
-                        <label>เวลาสิ้นสุด</label>
+                        <label>END_TIME</label>
                         <input type="time" id="s_end" required>
                     </div>
                     <div class="form-group">
-                        <label>จำนวนที่นั่งขั้นต่ำ</label>
+                        <label>MIN_SIZE</label>
                         <input type="number" id="s_capacity" min="1" value="1">
                     </div>
                 </div>
                 
-                <div class="form-group" style="margin-top: 15px;">
-                    <label>สิ่งอำนวยความสะดวก</label>
+                <div class="form-group">
+                    <label>POWER_UPS (FACILITIES)</label>
                     <div class="checkbox-group">
-                        <div class="checkbox-item"><input type="checkbox" value="Projector"> โปรเจคเตอร์</div>
-                        <div class="checkbox-item"><input type="checkbox" value="Whiteboard"> ไวท์บอร์ด</div>
-                        <div class="checkbox-item"><input type="checkbox" value="Wi-Fi"> Wi-Fi</div>
-                        <div class="checkbox-item"><input type="checkbox" value="Audio"> ระบบเสียง</div>
+                        <label><input type="checkbox" value="Projector"> PROJECTOR</label>
+                        <label><input type="checkbox" value="Whiteboard"> BOARD</label>
+                        <label><input type="checkbox" value="Wi-Fi"> WI-FI</label>
                     </div>
                 </div>
                 
-                <button type="button" class="btn btn-primary" onclick="handleSearch()">ค้นหาห้องว่าง</button>
+                <button type="button" class="btn btn-primary" onclick="handleSearch()">GO!</button>
             </form>
         </section>
 
         <section class="card hidden" id="resultCard">
-            <h2>📅 รายการห้องประชุมที่ว่าง</h2>
-            <div class="table-container">
+            <h2>LEVEL SELECT (ROOMS)</h2>
+            <div style="overflow-x: auto;">
                 <table>
                     <thead>
                         <tr>
-                            <th>ชื่อห้อง</th>
-                            <th>อาคาร/ชั้น</th>
-                            <th>ความจุ</th>
-                            <th>สิ่งอำนวยความสะดวก</th>
-                            <th>การจัดการ</th>
+                            <th>NAME</th>
+                            <th>LOCATION</th>
+                            <th>CAP</th>
+                            <th>SELECT</th>
                         </tr>
                     </thead>
                     <tbody id="roomList"></tbody>
@@ -220,48 +254,42 @@
     <div class="modal-overlay" id="bookingModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="m_room_name">ชื่อห้อง</h3>
-                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <h3 id="m_room_name" style="font-size: 0.8rem;">CONFIRM?</h3>
+                <span class="close-btn" onclick="closeModal()">[X]</span>
             </div>
             <form id="confirmForm">
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label>จำนวนผู้เข้าร่วม (ความจุสูงสุด: <span id="m_max"></span>)</label>
+                <div class="form-group">
+                    <label>PLAYERS (MAX: <span id="m_max"></span>)</label>
                     <input type="number" id="m_attendees" required min="1">
                 </div>
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label>วัตถุประสงค์การจอง</label>
+                <div class="form-group">
+                    <label>MISSION OBJECTIVE</label>
                     <textarea id="m_purpose" rows="3" required></textarea>
                 </div>
-                <button type="button" class="btn btn-success" style="width: 100%;" onclick="submitBooking()">ยืนยันการจอง</button>
+                <button type="button" class="btn btn-success" style="width: 100%;" onclick="submitBooking()">RESERVE!</button>
             </form>
         </div>
     </div>
 
     <script>
-        // Mock Data
+        // โค้ดส่วน Logic เดิมทั้งหมด
         const roomsData = [
-            { id: 1, name: "ห้อง A301", building: "อาคาร A", floor: 3, capacity: 10, facilities: ["Projector", "Whiteboard"] },
-            { id: 2, name: "ห้อง B402", building: "อาคาร B", floor: 4, capacity: 25, facilities: ["Projector", "Wi-Fi", "Audio"] },
-            { id: 3, name: "ห้อง C105", building: "อาคาร C", floor: 1, capacity: 50, facilities: ["Audio", "Whiteboard"] }
+            { id: 1, name: "WORLD 1-1", building: "PIPE_A", floor: 3, capacity: 10, facilities: ["Projector"] },
+            { id: 2, name: "CASTLE 8-4", building: "PEACH_B", floor: 4, capacity: 25, facilities: ["Wi-Fi"] },
+            { id: 3, name: "CLOUD 2-2", building: "SKY_C", floor: 1, capacity: 50, facilities: ["Whiteboard"] }
         ];
 
-        let selectedRoom = null;
-
-        // 1. ฟังก์ชันค้นหา
         function handleSearch() {
             const startDate = document.getElementById('s_date').value;
             const startTime = document.getElementById('s_start').value;
             const endTime = document.getElementById('s_end').value;
 
-            // Validation: ห้ามว่าง
             if (!startDate || !startTime || !endTime) {
-                alert("❌ กรุณากรอกข้อมูล วันที่และเวลา ให้ครบถ้วน");
+                alert("! ERROR: DATA MISSING !");
                 return;
             }
-
-            // Validation: เวลาสิ้นสุดต้องมากกว่าเวลาเริ่ม
             if (startTime >= endTime) {
-                alert("❌ เวลาสิ้นสุดต้องมากกว่าเวลาเริ่ม");
+                alert("! ERROR: TIME TRAVEL NOT ALLOWED !");
                 return;
             }
 
@@ -269,28 +297,25 @@
             document.getElementById('resultCard').classList.remove('hidden');
         }
 
-        // 2. ฟังก์ชันแสดงตาราง
         function renderTable() {
             const tbody = document.getElementById('roomList');
             tbody.innerHTML = "";
-
             roomsData.forEach(room => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td><strong>${room.name}</strong></td>
-                    <td>${room.building} ชั้น ${room.floor}</td>
-                    <td>${room.capacity} ท่าน</td>
-                    <td>${room.facilities.join(', ')}</td>
-                    <td><button class="btn btn-success" onclick="openBooking(${room.id})">เลือกจอง</button></td>
+                    <td>${room.name}</td>
+                    <td>${room.building} F${room.floor}</td>
+                    <td>${room.capacity}</td>
+                    <td><button class="btn btn-success" style="padding:5px; font-size:0.5rem" onclick="openBooking(${room.id})">PICK</button></td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // 3. ฟังก์ชันเปิด Modal จอง
+        let selectedRoom = null;
         function openBooking(roomId) {
             selectedRoom = roomsData.find(r => r.id === roomId);
-            document.getElementById('m_room_name').innerText = "ยืนยันการจอง: " + selectedRoom.name;
+            document.getElementById('m_room_name').innerText = "WORLD: " + selectedRoom.name;
             document.getElementById('m_max').innerText = selectedRoom.capacity;
             document.getElementById('bookingModal').style.display = 'flex';
         }
@@ -304,16 +329,15 @@
             const purpose = document.getElementById('m_purpose').value;
 
             if (!attendees || !purpose) {
-                alert("❌ กรุณากรอกจำนวนผู้เข้าร่วมและวัตถุประสงค์");
+                alert("! ERROR: FILL ALL FIELDS !");
                 return;
             }
-
             if (attendees > selectedRoom.capacity) {
-                alert(`❌ จำนวนคน (${attendees}) เกินความจุของห้อง (${selectedRoom.capacity})`);
+                alert("! TOO MANY PLAYERS !");
                 return;
             }
 
-            alert(`✅ จองสำเร็จ!\nห้อง: ${selectedRoom.name}\nจำนวน: ${attendees} คน`);
+            alert("CONGRATULATIONS! YOUR QUEST IS BOOKED!");
             closeModal();
             document.getElementById('confirmForm').reset();
         }
