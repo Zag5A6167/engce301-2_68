@@ -1,1 +1,0 @@
-https://github.com/ce-rmutl/engce301-lab/tree/main/term-project
